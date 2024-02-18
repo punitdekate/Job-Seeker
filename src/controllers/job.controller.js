@@ -5,7 +5,7 @@ export default class JobController {
         return res.render("create-new-job", { "errors": null });
     }
     postJobs(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         const jobDetails = req.body;
         const result = JobModel.createJob(jobDetails);
         if (result) {
@@ -22,7 +22,7 @@ export default class JobController {
     getJobDetails(req, res) {
         const id = req.params.id;
         const result = JobModel.getSpecificJob(id);
-        console.log(result);
+        // console.log(result);
         if (result) {
             return res.render("view-details", { "job": result });
         } else {

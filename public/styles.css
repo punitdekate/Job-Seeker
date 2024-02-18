@@ -1,9 +1,9 @@
 #landing-page {
-    width: 80%;
-    border: 2px solid black;
-    margin: auto;
-    margin-top: 20vh;
-    padding: 2rem;
+    background-image: url(images/jobseeker_landing_cover.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 90vh;
 }
 
 .add-width {
@@ -13,3 +13,11 @@
 
 
 /* view details */
+
+#pop-up-form {
+    display: none;
+    width: 70%;
+    position: absolute;
+    top: 12%;
+    border-radius: 1rem;
+}

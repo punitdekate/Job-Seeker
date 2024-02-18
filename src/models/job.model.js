@@ -10,6 +10,42 @@ const jobs = [{
     numberOfOpenings: '100',
     jobPosted: '12/06/24',
     applicants: 'Engineer'
+}, {
+    id: 1,
+    jobCategory: 'software',
+    jobDesignation: 'Developer',
+    jobLocation: 'Noida',
+    companyName: 'HM',
+    salary: '500000',
+    applyBy: 'HM ',
+    skillsRequired: 'C++,Java',
+    numberOfOpenings: '100',
+    jobPosted: '12/06/24',
+    applicants: 'Engineer'
+}, {
+    id: 1,
+    jobCategory: 'software',
+    jobDesignation: 'Developer',
+    jobLocation: 'Noida',
+    companyName: 'HM',
+    salary: '500000',
+    applyBy: 'HM ',
+    skillsRequired: 'C++,Java',
+    numberOfOpenings: '100',
+    jobPosted: '12/06/24',
+    applicants: 'Engineer'
+}, {
+    id: 1,
+    jobCategory: 'software',
+    jobDesignation: 'Developer',
+    jobLocation: 'Noida',
+    companyName: 'HM',
+    salary: '500000',
+    applyBy: 'HM ',
+    skillsRequired: 'C++,Java',
+    numberOfOpenings: '100',
+    jobPosted: '12/06/24',
+    applicants: 'Engineer'
 }];
 export default class JobModel {
     constructor(_jobCategory, _jobDesignation, _jobLocation, _companyName, _salary, _applyBy, _skillsRequired, _numberOfOpening, _jobPosted, _applicants) {

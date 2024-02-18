@@ -16,7 +16,7 @@ export default class UserModel {
     }
     static postLogin(_email, _password) {
         const result = users.find(user => (user.email == _email && user.password == _password));
-        console.log(users, result);
+        // console.log(users, result);
         return result;
     }
 }

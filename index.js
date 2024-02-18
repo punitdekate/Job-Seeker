@@ -6,6 +6,8 @@ import { validateUser } from "./src/middlewares/register-user-validation.middlew
 import JobController from "./src/controllers/job.controller.js";
 import LandingController from "./src/controllers/landing.controller.js";
 import session, { Cookie } from "express-session";
+import ApplicantController from "./src/controllers/applicants.controller.js";
+import { upload } from "./src/middlewares/upload-pdf.middleware.js";
 const server = express();
 
 server.use(session({
@@ -16,21 +18,26 @@ server.use(session({
 }))
 
 // Setup view engine 
+server.use(express.static("public"));
 server.set('view engine', 'ejs') //setup chich engine we are using
 server.set('views', path.join(path.resolve(), 'src', 'views')) //setup path where is our views
 server.use(expressLayout);
 server.use(express.urlencoded({ 'extended': false }));
-server.use(express.static("public"));
 
 
 const UsersController = new UserController();
 const JobsController = new JobController()
 const LandingPage = new LandingController();
+const ApplicantsController = new ApplicantController();
 // server.get('/', LandingPage.getLandingPage);
-server.get('/jobs', JobsController.getJobs)
-server.post('/jobs', JobsController.postJobs)
-server.get('/add-job', JobsController.addJob)
-server.get('/jobs/:id', JobsController.getJobDetails)
+server.get('/jobs', JobsController.getJobs) //retrieve all jobs
+server.post('/jobs', JobsController.postJobs) //post create new job
+server.get('/add-job', JobsController.addJob) // render create new job
+server.get('/jobs/:id', JobsController.getJobDetails) //to show details
+server.post('/jobs/:id', JobsController.getJobDetails)
+    // server.get('/jobs/:id', JobsController.getJobDetails) //to show details 
+server.post('/apply/:id', upload.single('resume'), ApplicantsController.postApply)
+
 server.get('/', UsersController.getLoginUser)
 server.post('/login', UsersController.postLoginUser)
 server.get("/register", UsersController.getRegisterUser)
