@@ -1,0 +1,15 @@
+#landing-page {
+    width: 80%;
+    border: 2px solid black;
+    margin: auto;
+    margin-top: 20vh;
+    padding: 2rem;
+}
+
+.add-width {
+    width: 100%;
+    font-size: large;
+}
+
+
+/* view details */

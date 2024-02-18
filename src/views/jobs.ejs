@@ -1,0 +1,27 @@
+<% jobs.forEach((job)=>{%>
+    <div class="card m-4" style="width: 18rem;">
+        <div class="card-body">
+            <div class="">
+                <h4>Hiring<span><i class="fa-solid fa-arrow-trend-up"></i></span></h4>
+            </div>
+            <h5 class="card-title">Job Category :
+                <%= job.jobCategory %>
+            </h5>
+            <p class="card-text">Job Designation :
+                <%= job.jobDesignation %>
+            </p>
+            <p class="card-text">Job Location :
+                <%= job.jobLocation %>
+            </p>
+            <p class="card-text">Company Name :
+                <%= job.companyName %>
+            </p>
+            <p class="card-text">Salary :
+                <%= job.salary %>
+            </p>
+            <a href="/jobs/<%=job.id%>" class="btn btn-primary m-1 add-width">View Details</a>
+            <!-- <a href="#" class="btn btn-primary  m-1 add-width">View Details</a>
+            <button class='btn btn-primary  m-1 add-width'>Delete Job</button> -->
+        </div>
+    </div>
+    <%})%>

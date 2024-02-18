@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>Job Seeker Details</h1>
+    <div>
+        <h2>Job Category:
+            <%= job.jobCategory %>
+        </h2>
+        <p><strong>Job Designation:</strong>
+            <%= job.jobDesignation %>
+        </p>
+        <p><strong>Job Location:</strong>
+            <%= job.jobLocation %>
+        </p>
+        <p><strong>Company Name:</strong>
+            <%= job.companyName  %>
+        </p>
+        <p><strong>Salary:</strong>
+            <%= job.salary %>
+        </p>
+        <p><strong>Apply By:</strong>
+            <%= job.applyBy %>
+        </p>
+        <p><strong>Skills Required:</strong>
+            <%= job.skillsRequired %>
+        </p>
+        <p><strong>numberOfOpenings:</strong>
+            <%= job.numberOfOpenings %>
+        </p>
+        <p><strong>Job Posted:</strong>
+            <%= job.jobPosted %>
+        </p>
+        <p><strong>Applicants:</strong>
+            <%= job.applicants %>
+        </p>
+        <a href="/jobs/<%=job.id%>" class="btn btn-primary m-1 add-width">Apply</a>
+    </div>
+</div>
