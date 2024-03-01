@@ -1,4 +1,8 @@
-const users = [];
+const users = [{
+    "name": "punit vijay dekate",
+    "email": "punitdekate.1999@gmail.com",
+    "password": "punitdekate"
+}];
 export default class UserModel {
     constructor(_name, _email, _password) {
         this.id = users.length + 1;
@@ -16,7 +20,6 @@ export default class UserModel {
     }
     static postLogin(_email, _password) {
         const result = users.find(user => (user.email == _email && user.password == _password));
-        // console.log(users, result);
         return result;
     }
 }

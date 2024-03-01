@@ -2,20 +2,26 @@ import express, { urlencoded } from "express";
 import expressLayout from 'express-ejs-layouts'
 import path from 'path';
 import UserController from './src/controllers/user.controller.js';
-import { validateUser } from "./src/middlewares/register-user-validation.middleware.js";
 import JobController from "./src/controllers/job.controller.js";
 import LandingController from "./src/controllers/landing.controller.js";
-import session, { Cookie } from "express-session";
+import session from "express-session";
 import ApplicantController from "./src/controllers/applicants.controller.js";
 import { upload } from "./src/middlewares/upload-pdf.middleware.js";
+import { auth } from "./src/middlewares/auth.middleware.js";
+import cookieParser from "cookie-parser";
+import { validateApplication } from "./src/middlewares/apply-job.middleware.js";
+import { validateUser } from "./src/middlewares/user-validation.middleware.js";
+import fs from 'fs';
 const server = express();
 
+server.use(cookieParser());
 server.use(session({
     secret: "Keypad Cat",
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
 }))
+
 
 // Setup view engine 
 server.use(express.static("public"));
@@ -29,19 +35,23 @@ const UsersController = new UserController();
 const JobsController = new JobController()
 const LandingPage = new LandingController();
 const ApplicantsController = new ApplicantController();
-// server.get('/', LandingPage.getLandingPage);
+server.get('/', LandingPage.getLandingPage);
 server.get('/jobs', JobsController.getJobs) //retrieve all jobs
-server.post('/jobs', JobsController.postJobs) //post create new job
-server.get('/add-job', JobsController.addJob) // render create new job
+server.post('/jobs', auth, JobsController.postJobs) //post create new job
+server.get('/add-job', auth, JobsController.addJob) // render create new job
 server.get('/jobs/:id', JobsController.getJobDetails) //to show details
-server.post('/jobs/:id', JobsController.getJobDetails)
-    // server.get('/jobs/:id', JobsController.getJobDetails) //to show details 
-server.post('/apply/:id', upload.single('resume'), ApplicantsController.postApply)
+server.post('/jobs/update/:id', auth, JobsController.putJobDetails)
+server.post('/jobs/delete/:id', auth, JobsController.deleteJob)
+server.post('/jobs/apply/:id', upload.single('resume'), validateApplication, ApplicantsController.postApply)
 
-server.get('/', UsersController.getLoginUser)
+server.get("/jobs/applicants/:id", auth, ApplicantsController.getApplicants);
+server.get("/get-pdf/:id", auth, ApplicantsController.viewPdf);
+
+server.get('/login', UsersController.getLoginUser)
 server.post('/login', UsersController.postLoginUser)
 server.get("/register", UsersController.getRegisterUser)
 server.post("/register", validateUser, UsersController.postRegisterUser)
+server.get('/logout', UsersController.logout);
 server.listen("3400", () => {
     console.log("Server is listening on port no 3400");
 })

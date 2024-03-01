@@ -1,6 +1,6 @@
 import { body, validationResult } from 'express-validator'
 
-export const validateUser = async(req, res, next) => {
+export const validateApplication = async(req, res, next) => {
     const rules = [
         body('name').notEmpty().withMessage("Name is required"),
         body('email').isEmail().withMessage("Invalid email"),
@@ -20,7 +20,7 @@ export const validateUser = async(req, res, next) => {
 
     if (!validationErrors.isEmpty()) {
         const errors = validationErrors.array();
-        return res.render('apply', { "errors": errors });
+        return res.render('apply', { "errors": errors[0] });
     }
     next();
 }

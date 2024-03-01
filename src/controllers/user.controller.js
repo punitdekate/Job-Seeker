@@ -8,7 +8,7 @@ export default class UserController {
         const user = req.body;
         const result = UserModel.addUser(user);
         if (!result) {
-            res.send("Something is going wrong!")
+            return res.render("error404")
         }
         return res.render("login-user", { "errors": null });
     }
@@ -21,14 +21,18 @@ export default class UserController {
         if (!result) {
             return res.render("login-user", { "errors": "Invalid Credentials" })
         }
-        req.session.userEmail = email;
-        res.render('landing-page');
+        res.cookie("userEmail", email, {
+            maxAge: 1 * 24 * 60 * 60
+        });
+        req.session.userId = email;
+        return res.redirect('/jobs');
     }
     logout(req, res) {
         req.session.destroy((err) => {
             if (err) {
-                return res.send("404");
+                return res.render("error404");
             } else {
+                res.clearCookies();
                 return res.redirect("/");
             }
         })

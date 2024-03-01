@@ -14,10 +14,56 @@
 
 /* view details */
 
-#pop-up-form {
+.hide-display {
     display: none;
-    width: 70%;
+}
+
+#view-details {
+    border: 2px solid black;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.place {
+    position: relative;
+    left: 94%;
+    /* margin-top: -9%; */
+    border-radius: 0.6rem;
+}
+
+
+/* Login and registration  */
+
+.login-bg {
+    background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%);
+}
+
+.bg {
+    background-image: linear-gradient(to top, #5f72bd 0%, #9b23ea 100%);
+}
+
+.landing {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+}
+
+.label-w-x {
+    margin-left: 20px;
+}
+
+#popup {
     position: absolute;
-    top: 12%;
-    border-radius: 1rem;
+    top: 30%;
+    left: 40%;
+}
+
+.pop-up-pos {
+    position: absolute;
+    top: 30%;
+    left: 40%;
 }

@@ -1,9 +1,16 @@
-function getLoginForm(id) {
-    const element = document.getElementById('pop-up-form');
-    console.log((element));
-    const viewDetails = document.getElementById('view-details');
-    viewDetails.style.backgroundColor = 'black';
-    viewDetails.style.backdropFilter = 'blur(5px)';
-    viewDetails.style.display = 'none';
-    element.style.display = 'block';
+function setDisplay(sourceId, targetId) {
+    sourceId.forEach(source => {
+        const sourceEle = document.getElementById(source);
+        sourceEle.style.display = 'none';
+    })
+    const targetEle = document.getElementById(targetId);
+    targetEle.style.display = 'block';
+}
+
+function openPopup() {
+    document.getElementById("popupContainer").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("popupContainer").style.display = "none";
 }

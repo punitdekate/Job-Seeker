@@ -1,5 +1,5 @@
 export default class LandingController {
     getLandingPage(req, res) {
-        res.render("landing-page");
+        return res.render("landing-page", { "userEmail": req.cookies.userEmail });
     }
 }

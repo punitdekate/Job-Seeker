@@ -2,20 +2,32 @@ const jobs = [{
     id: 1,
     jobCategory: 'software',
     jobDesignation: 'Developer',
-    jobLocation: 'Noida',
-    companyName: 'HM',
+    jobLocation: 'Delhi',
+    companyName: 'Infosys',
     salary: '500000',
-    applyBy: 'HM ',
-    skillsRequired: 'C++,Java',
-    numberOfOpenings: '100',
+    applyBy: 'Infosys',
+    skillsRequired: 'C++,Java,PHP,Jquery',
+    numberOfOpenings: '10',
     jobPosted: '12/06/24',
     applicants: 'Engineer'
 }, {
-    id: 1,
+    id: 2,
     jobCategory: 'software',
-    jobDesignation: 'Developer',
+    jobDesignation: 'Tester',
     jobLocation: 'Noida',
-    companyName: 'HM',
+    companyName: 'Deloitte',
+    salary: '500000',
+    applyBy: 'Deloitte',
+    skillsRequired: 'C++,Java,HTML,CSS',
+    numberOfOpenings: '100',
+    jobPosted: '12/06/24',
+    applicants: 'Engineer'
+}, {
+    id: 3,
+    jobCategory: 'Tester',
+    jobDesignation: 'Automation Tester',
+    jobLocation: 'Pune',
+    companyName: 'TCS',
     salary: '500000',
     applyBy: 'HM ',
     skillsRequired: 'C++,Java',
@@ -23,19 +35,7 @@ const jobs = [{
     jobPosted: '12/06/24',
     applicants: 'Engineer'
 }, {
-    id: 1,
-    jobCategory: 'software',
-    jobDesignation: 'Developer',
-    jobLocation: 'Noida',
-    companyName: 'HM',
-    salary: '500000',
-    applyBy: 'HM ',
-    skillsRequired: 'C++,Java',
-    numberOfOpenings: '100',
-    jobPosted: '12/06/24',
-    applicants: 'Engineer'
-}, {
-    id: 1,
+    id: 4,
     jobCategory: 'software',
     jobDesignation: 'Developer',
     jobLocation: 'Noida',
@@ -74,5 +74,37 @@ export default class JobModel {
     static getSpecificJob(id) {
         const job = jobs.find(job => job.id == id);
         return job;
+    }
+    static delete(id) {
+        const index = jobs.findIndex(job => job.id == id);
+        if (index >= 0) {
+            const deletedJob = jobs[index];
+            jobs.splice(index, 1);
+            return { "success": true, "msg": deletedJob };
+        }
+        return { "success": false, "msg": "Job not found!" };
+
+    }
+    static update(id, jobDetails) {
+        const index = jobs.findIndex(job => job.id == id);
+        if (index >= 0) {
+            const updatedJob = {
+                "id": id,
+                "jobCategory": jobDetails.jobCategory,
+                "jobDesignation": jobDetails.jobDesignation,
+                "jobLocation": jobDetails.jobLocation,
+                "companyName": jobDetails.companyName,
+                "salary": jobDetails.salary,
+                "applyBy": jobDetails.applyBy,
+                "skillsRequired": jobDetails.skillsRequired,
+                "numberOfOpening": jobDetails.numberOfOpening,
+                "jobPosted": jobDetails.jobPosted,
+                "applicants": jobDetails.applicants,
+            }
+            jobs[index] = updatedJob;
+            return { "success": true, "msg": updatedJob }
+        } else {
+            return { "success": false, "msg": "Something went wrong" }
+        }
     }
 }

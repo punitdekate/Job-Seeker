@@ -1,8 +1,17 @@
-<div id="landing-page">
-    <h3>Destiny is waiting for you!!</h3>
-    <p>
-        Job search portal typically offer a range of features for both job seekers and recruiters.
-    </p>
-    <a class="btn btn-primary" href="/jobs" role="button">I'm Job Seeker</a>
-    <a class="btn btn-primary" href="/" role="button">Recruiter</a>
+<div class="landing">
+    <div class="">
+        <img src="" alt="">
+    </div>
+    <div class="">
+        <h3>Destiny is waiting for you!!</h3>
+        <p>
+            Job search portal typically offer a range of features for both job seekers and recruiters.
+        </p>
+        <a class="btn btn-dark" href="/jobs" role="button">I'm Job Seeker</a>
+        <% if(locals.userEmail){ %>
+            <a class="btn btn-dark" href="/jobs" role="button">Recruiter</a>
+            <% }else{ %>
+                <a class="btn btn-dark" href="/login" role="button">Recruiter</a>
+                <% } %>
+    </div>
 </div>
