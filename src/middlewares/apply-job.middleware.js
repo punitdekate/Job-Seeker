@@ -1,5 +1,6 @@
 import { body, validationResult } from 'express-validator'
 
+/**Apply form validation */
 export const validateApplication = async(req, res, next) => {
     const rules = [
         body('name').notEmpty().withMessage("Name is required"),
@@ -20,7 +21,7 @@ export const validateApplication = async(req, res, next) => {
 
     if (!validationErrors.isEmpty()) {
         const errors = validationErrors.array();
-        return res.render('apply', { "errors": errors[0] });
+        return res.render('apply', { "errors": errors[0], "userEmail": req.cookies.userEmail });
     }
     next();
 }

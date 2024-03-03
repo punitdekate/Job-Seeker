@@ -30,10 +30,13 @@ export default class ApplicantModel {
         this.contact = _contact;
         this.resumePath = _resumePath;
     }
+
+    /**To Retrieve all the applicants */
     static getApplicants() {
         return applicants;
     }
 
+    /**To save the response of the user apply for the job */
     static postApplicant(jobId, name, email, contact, fileName) {
         const applicantPresent = applicants.find(applicant => applicant.jobId == jobId && applicant.email == email);
         if (applicantPresent) {
@@ -44,12 +47,17 @@ export default class ApplicantModel {
             return { "success": true, "message": "Applied Successfully!", "errors": null }
         }
     }
+
+    /**To retrieve all the applicants applied for the specific job */
     static get(jobId) {
         const applicant = applicants.filter(app => app.jobId == jobId);
         return applicant;
     }
+
+    /**To retrieve the path of resume for the the spoecific applicant */
     static getPath(id) {
         let applicant = applicants.find(ele => ele.id == id);
         return applicant.resumePath;
     }
+
 }

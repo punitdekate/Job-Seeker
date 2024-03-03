@@ -15,7 +15,7 @@ export const validateUser = async(req, res, next) => {
 
     if (!validationErrors.isEmpty()) {
         const errors = validationErrors.array();
-        return res.render('register-user', { "errors": errors[0] });
+        return res.render('register-user', { "errors": errors[0], "userEmail": req.cookies.userEmail });
     }
     next();
 }

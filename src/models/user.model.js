@@ -11,13 +11,15 @@ export default class UserModel {
         this.password = _password;
     }
 
+    /**To add new user */
     static addUser(user) {
-        // console.log(user);
         const { name, email, password } = user;
         const newUser = new UserModel(name, email, password);
         users.push(newUser);
         return true;
     }
+
+    /**Validate the user */
     static postLogin(_email, _password) {
         const result = users.find(user => (user.email == _email && user.password == _password));
         return result;

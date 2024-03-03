@@ -8,8 +8,9 @@ const jobs = [{
     applyBy: 'Infosys',
     skillsRequired: 'C++,Java,PHP,Jquery',
     numberOfOpenings: '10',
-    jobPosted: '12/06/24',
-    applicants: 'Engineer'
+    jobPosted: '2024-03-03',
+    applicants: 'Engineer',
+    createdBy: 'punitdekate.1999@gmail.com'
 }, {
     id: 2,
     jobCategory: 'software',
@@ -20,20 +21,23 @@ const jobs = [{
     applyBy: 'Deloitte',
     skillsRequired: 'C++,Java,HTML,CSS',
     numberOfOpenings: '100',
-    jobPosted: '12/06/24',
-    applicants: 'Engineer'
+    jobPosted: '2024-03-03',
+    applicants: 'Engineer',
+    createdBy: "punitdekate.1999@gmail.com"
 }, {
     id: 3,
     jobCategory: 'Tester',
-    jobDesignation: 'Automation Tester',
+    jobDesignation: 'Automation',
     jobLocation: 'Pune',
     companyName: 'TCS',
     salary: '500000',
     applyBy: 'HM ',
     skillsRequired: 'C++,Java',
     numberOfOpenings: '100',
-    jobPosted: '12/06/24',
-    applicants: 'Engineer'
+    jobPosted: '2024-03-03',
+    applicants: 'Engineer',
+    createdBy: "punitdekateofficial@gmail.com"
+
 }, {
     id: 4,
     jobCategory: 'software',
@@ -44,11 +48,13 @@ const jobs = [{
     applyBy: 'HM ',
     skillsRequired: 'C++,Java',
     numberOfOpenings: '100',
-    jobPosted: '12/06/24',
-    applicants: 'Engineer'
+    jobPosted: '2024-03-03',
+    applicants: 'Engineer',
+    createdBy: "nuttubandar.1999@gmail.com"
+
 }];
 export default class JobModel {
-    constructor(_jobCategory, _jobDesignation, _jobLocation, _companyName, _salary, _applyBy, _skillsRequired, _numberOfOpening, _jobPosted, _applicants) {
+    constructor(_jobCategory, _jobDesignation, _jobLocation, _companyName, _salary, _applyBy, _skillsRequired, _numberOfOpening, _jobPosted, _applicants, _createdBy) {
         this.id = jobs.length + 1;
         this.jobCategory = _jobCategory;
         this.jobDesignation = _jobDesignation;
@@ -60,21 +66,30 @@ export default class JobModel {
         this.numberOfOpening = _numberOfOpening;
         this.jobPosted = _jobPosted;
         this.applicants = _applicants;
+        this.createdBy = _createdBy;
     }
 
-    static createJob(jobDetails) {
+    /**To recieve response from the create new job form */
+    static createJob(jobDetails, email) {
         const { jobCategory, jobDesignation, jobLocation, companyName, salary, applyBy, skillsRequired, numberOfOpening, jobPosted, applicants } = jobDetails;
-        const newJob = new JobModel(jobCategory, jobDesignation, jobLocation, companyName, salary, applyBy, skillsRequired, numberOfOpening, jobPosted, applicants);
+        const createdBy = email
+        const newJob = new JobModel(jobCategory, jobDesignation, jobLocation, companyName, salary, applyBy, skillsRequired, numberOfOpening, jobPosted, applicants, createdBy);
         jobs.push(newJob);
         return true;
     }
+
+    /**Retrieve the list of jobs */
     static getJobList() {
         return jobs;
     }
+
+    /**To retrieve the specific job */
     static getSpecificJob(id) {
         const job = jobs.find(job => job.id == id);
         return job;
     }
+
+    /**To delete the specific job */
     static delete(id) {
         const index = jobs.findIndex(job => job.id == id);
         if (index >= 0) {
@@ -85,6 +100,8 @@ export default class JobModel {
         return { "success": false, "msg": "Job not found!" };
 
     }
+
+    /**To update the specific job on the site */
     static update(id, jobDetails) {
         const index = jobs.findIndex(job => job.id == id);
         if (index >= 0) {
@@ -106,5 +123,20 @@ export default class JobModel {
         } else {
             return { "success": false, "msg": "Something went wrong" }
         }
+    }
+
+    /**To filter the jobs on the search query */
+    static filter(query) {
+        query = query.toLowerCase();
+        const jobsFiltered = jobs.filter((ele) => {
+            return ele.companyName.toLowerCase().includes(query) || ele.jobCategory.toLowerCase().includes(query) || ele.jobCategory.toLowerCase().includes(query);
+        })
+        return { "success": true, "msg": jobsFiltered };
+    }
+
+    /**To filter out the jobs posted by the recuiter */
+    static postedByLoginUser(userEmail) {
+        const filteredByLoginUser = jobs.filter(job => job.createdBy == userEmail);
+        return { "success": true, "msg": filteredByLoginUser };
     }
 }

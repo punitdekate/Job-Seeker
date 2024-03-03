@@ -2,8 +2,8 @@ import ApplicantModel from "../models/applicants.model.js";
 import fs from 'fs';
 import { sendNotification } from "./mail.controller.js";
 export default class ApplicantController {
+    /**Recieve the applicants response after apply */
     postApply(req, res) {
-        // console.log(req.body, req.file);
         const jobId = req.params.id;
         const { name, email, contact } = req.body;
         const fileName = "public/resumes/" + req.file.filename;
@@ -15,11 +15,14 @@ export default class ApplicantController {
             return res.render('error404');
         }
     }
+
+    /**To retrieve applicants applied to the spcific job */
     getApplicants(req, res) {
         const applicants = ApplicantModel.get(req.params.id);
         return res.render("applicants", { "applicants": applicants, "userEmail": req.cookies.userEmail });
     }
 
+    /**To render the resume pdf of applicant */
     viewPdf(req, res) {
         let id = req.params.id;
         const filePath = ApplicantModel.getPath(id);

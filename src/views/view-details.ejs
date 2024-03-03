@@ -1,54 +1,58 @@
 <div id='view-details' class="container text-black my-5 p-4 border border-light-subtle rounded login-bg " style="width: 70%; ">
-    <h3 class='text-center'>Job Details</h3>
-    <img src="public\images\we-are-hiring.jpg" class="img-fluid " alt="... ">
-    <div>
-        <p class=" ">Job Category:
-            <%= job.jobCategory %>
-        </p>
-        <p>Job Designation:
-            <%= job.jobDesignation %>
-        </p>
-        <p>Job Location:
-            <%= job.jobLocation %>
-        </p>
-        <p>Company Name:
-            <%= job.companyName  %>
-        </p>
-        <p>Salary:
-            <%= job.salary %>
-        </p>
-        <p>Apply By:
-            <%= job.applyBy %>
-        </p>
-        <p>Skills Required:
-            <%= job.skillsRequired %>
-        </p>
-        <p>numberOfOpenings:
-            <%= job.numberOfOpenings %>
-        </p>
-        <p>Job Posted:
-            <%= job.jobPosted %>
-        </p>
-        <p>Applicants:
-            <%= job.applicants %>
-        </p>
+    <!-- <a href="/jobs" class="btn btn-primary">Back</a> -->
+    <div class="details">
+        <div class="detail-heading"><span>Job Details</span></div>
+
+        <div class="detail-image"></div>
+        <div class="detail">
+            <label>Category:</label>
+            <span><%= job.jobCategory %></span>
+        </div>
+        <div class="detail">
+            <label>Company Name:</label>
+            <span><%= job.companyName  %></span>
+        </div>
+        <div class="detail">
+            <label>Designation:</label>
+            <span><%= job.jobDesignation %></span>
+        </div>
+        <div class="detail">
+            <label>Skills:</label>
+            <span><%= job.skillsRequired %><span>
+        </div>
+        <div class="detail">
+            <label>Salary:</label>
+            <span><%= job.salary %></span>
+        </div>
+        <div class="detail">
+            <label>Openings:</label>
+            <span><%= job.numberOfOpenings %></span>
+        </div>
+        <div class="detail">
+            <label>Posted:</label>
+            <span>
+                <%= job.jobPosted %>
+            </span>
+        </div>
+        <div class="detail">
+            <button type="button" class="btn btn-primary" onclick='setDisplay(["update-form"],"apply-form")'>Apply</button>
+
+            <%if(locals.userEmail && job.createdBy == locals.userEmail){%>
+                <button type="button" class="btn btn-primary" onclick='setDisplay(["view-details","apply-form"] , "update-form")'>Update</button>
+
+
+                <button type="button" class="btn btn-danger" onclick="setDisplay(['update-form','apply-form'],'popup')">Delete</button>
+
+                <a class="btn btn-secondary" href="/jobs/applicants/<%= job.id %>">Applicants</a>
+                <% } %>
+
+        </div>
     </div>
-
-    <button type="button" class="btn btn-primary" onclick='setDisplay(["update-form"],"apply-form")'>Apply</button>
-
-    <%if(locals.userEmail){%>
-        <button type="button" class="btn btn-primary" onclick='setDisplay(["view-details","apply-form"] , "update-form")'>Update</button>
-
-
-        <button type="button" class="btn btn-danger" onclick="setDisplay(['update-form','apply-form'],'popup')">Delete</button>
-
-        <a class="btn btn-secondary" href="/jobs/applicants/<%= job.id %>">Applicants</a>
-        <% } %>
-
-
 </div>
 
-<div class="hide-display container text-white my-5 p-4 border border-light-subtle rounded bg" style="width: 20%;" id="popup">
+<!-- Delete Job Pop up -->
+
+<div class="hide-display container text-white my-5 p-4 border border-light-subtle rounded bg pop-up-pos" style="width: 15rem;" id="popup">
     <form class="row g-3" action="delete/<%= job.id %>" method="post">
         <p>Are you sure you want to delete?</p>
         <button type="submit " class="btn btn-danger ">Yes</button>
@@ -56,6 +60,7 @@
     </form>
 </div>
 
+<!-- Update form -->
 <div class="hide-display container text-black my-5 p-4 border border-light-subtle rounded login-bg" style="width: 70%;" id="update-form">
     <div class="place"><button class="btn" onclick="setDisplay(['update-form','apply-form'],'view-details')"><i class="fa-solid fa-x"></button></i>
     </div>
@@ -111,6 +116,8 @@
     </form>
 </div>
 
+
+<!-- Apply for the job Form -->
 <div class=" hide-display container text-black my-5 p-4 border border-light-subtle rounded bg pop-up-pos" style="width: 400px;" id="apply-form">
     <div class="place"><button class="btn" onclick="setDisplay(['update-form','apply-form'],'view-details')"><i class="fa-solid fa-x"></button></i>
     </div>
@@ -133,8 +140,4 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
-
-<div class="container hide-display my-5 p-4 border border-light-subtle rounded login-bg" style="width: 200px;">
-    <h3 class="text-center">Applied Successfully for the job! !!</h3>
 </div>

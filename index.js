@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser";
 import { validateApplication } from "./src/middlewares/apply-job.middleware.js";
 import { validateUser } from "./src/middlewares/user-validation.middleware.js";
 import fs from 'fs';
+import { validateNewJob } from "./src/middlewares/create-job-validation.middleware.js";
 const server = express();
 
 server.use(cookieParser());
@@ -37,15 +38,19 @@ const LandingPage = new LandingController();
 const ApplicantsController = new ApplicantController();
 server.get('/', LandingPage.getLandingPage);
 server.get('/jobs', JobsController.getJobs) //retrieve all jobs
-server.post('/jobs', auth, JobsController.postJobs) //post create new job
-server.get('/add-job', auth, JobsController.addJob) // render create new job
+server.post('/jobs', auth, validateNewJob, JobsController.postJobs) //post create new job
+server.get('/add-job', auth, JobsController.addNewJob) // render create new job
 server.get('/jobs/:id', JobsController.getJobDetails) //to show details
 server.post('/jobs/update/:id', auth, JobsController.putJobDetails)
 server.post('/jobs/delete/:id', auth, JobsController.deleteJob)
 server.post('/jobs/apply/:id', upload.single('resume'), validateApplication, ApplicantsController.postApply)
+server.get("/posted-by-user", auth, JobsController.filter)
+
 
 server.get("/jobs/applicants/:id", auth, ApplicantsController.getApplicants);
 server.get("/get-pdf/:id", auth, ApplicantsController.viewPdf);
+
+server.post('/search', JobsController.search)
 
 server.get('/login', UsersController.getLoginUser)
 server.post('/login', UsersController.postLoginUser)

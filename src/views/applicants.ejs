@@ -1,4 +1,4 @@
-<div id='view-details' class="container text-black my-5 p-4 border border-light-subtle rounded bg " style="width: 90%; ">
+<div id='view-details' class="container text-black my-5 p-4 border border-light-subtle rounded login-bg " style="width: 90%; ">
     <table class="table">
         <thead>
             <tr>
@@ -24,7 +24,7 @@
                     <td>
                         <%= applicant.contact %>
                     </td>
-                    <td><a href="/get-pdf/<%=applicant.id%>" target="_blank"><i class="fa-solid fa-file-pdf"></i></a></td>
+                    <td><a href="/get-pdf/<%=applicant.id%>" target="_blank">View</a></td>
                 </tr>
                 <%})%>
         </tbody>

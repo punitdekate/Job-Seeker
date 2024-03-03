@@ -1,9 +1,12 @@
 import UserModel from '../models/user.model.js';
 
 export default class UserController {
+    /**To render the registration form to the user */
     getRegisterUser(req, res) {
         return res.render('register-user', { "errors": null });
     }
+
+    /**To retrive the response of user from registration form */
     postRegisterUser(req, res) {
         const user = req.body;
         const result = UserModel.addUser(user);
@@ -12,9 +15,13 @@ export default class UserController {
         }
         return res.render("login-user", { "errors": null });
     }
+
+    /**To render the login form */
     getLoginUser(req, res) {
         return res.render("login-user", { "errors": null });
     }
+
+    /**To validate the user and render the screen as per the recruiter */
     postLoginUser(req, res) {
         const { email, password } = req.body;
         const result = UserModel.postLogin(email, password);
@@ -27,12 +34,17 @@ export default class UserController {
         req.session.userId = email;
         return res.redirect('/jobs');
     }
+
+    /**Logout from the website */
     logout(req, res) {
         req.session.destroy((err) => {
             if (err) {
                 return res.render("error404");
             } else {
-                res.clearCookies();
+                const cookies = req.cookies;
+                for (const cookieName in cookies) {
+                    res.clearCookie(cookieName);
+                }
                 return res.redirect("/");
             }
         })
